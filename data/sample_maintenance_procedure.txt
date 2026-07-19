@@ -1,0 +1,80 @@
+MECHANICAL SEAL REPLACEMENT PROCEDURE
+Work Instruction WI-MAINT-023 Rev 3
+Equipment: Centrifugal Pumps (API 610) — CDU Service
+Document No: ENG-WI-023
+
+1. SCOPE
+This procedure covers the replacement of mechanical seals on centrifugal pumps in crude distillation unit service, including pumps P-101, P-102, P-103.
+
+2. APPLICABLE EQUIPMENT
+- Pump Tag: PUMP-P101 (Crude Feed Pump, CDU Unit 1)
+- Pump Tag: PUMP-P102 (Reflux Pump, CDU Unit 1)
+- Seal Type: API Plan 11 Flush (standard), API Plan 23 (hot service >150°C)
+- OEM: KSB Pumps
+
+3. SAFETY PRECAUTIONS
+⚠️ SAFETY: Ensure pump is isolated, depressurised, and purged before commencing.
+- Issue Work Permit (Hot Work or Cold Work as applicable)
+- Confirm LOTO (Lockout-Tagout) on motor MCC breaker
+- Check for H2S — use gas detector. LEL < 10% before entry.
+- Pressure: 0 barg confirmed on pressure gauge PI-1012
+- Temperature: <40°C confirmed before opening seal housing
+- PPE: Chemical resistant gloves, face shield, coveralls
+
+4. TOOLS REQUIRED
+- Torque wrench (0-100 Nm)
+- Bearing puller set
+- Seal installation tool (KSB Part No. 3501-089)
+- Digital micrometer
+- Feeler gauge set
+
+5. PROCEDURE
+5.1 ISOLATION
+  a. Close suction valve SDV-1001 and discharge valve DDV-1002
+  b. Close flush line isolation valve FV-1003
+  c. Issue LOTO on motor breaker at MCC Panel-P1
+  d. Vent and drain pump casing via drain valve DV-1005
+  e. Confirm zero pressure reading on PI-1012
+
+5.2 DISASSEMBLY
+  a. Mark coupling alignment reference marks before disassembly
+  b. Remove coupling guard (4× M10 bolts)
+  c. Disconnect spacer coupling
+  d. Remove seal gland bolts (6× M8 at 35 Nm)
+  e. Carefully slide stationary seal seat from gland
+  f. Remove rotating seal assembly from shaft
+
+5.3 INSPECTION
+  a. Inspect shaft sleeve for wear or scoring — max allowable runout 0.05 mm TIR
+  b. Inspect seal chamber bore — record dimensions
+  c. Inspect flush line orifice (3 mm nominal) — clean if blocked
+
+5.4 INSTALLATION
+  a. Clean all mating surfaces with isopropyl alcohol
+  b. Lubricate O-rings with clean process-compatible grease
+  c. Install new stationary seat — ensure square to bore within 0.025 mm
+  d. Install rotating assembly — compress spring to correct compression dimension (ref OEM manual Table 6-2)
+  e. Torque gland bolts to 35 Nm in cross pattern
+
+5.5 RECOMMISSIONING
+  a. Slowly open suction valve and vent air from casing
+  b. Open flush line valve — confirm flush flow on FI-1006 (min 3.0 L/min)
+  c. Remove LOTO and start pump
+  d. Check for seal leakage — zero acceptable for API seals
+  e. Record seal face temperature at 15 min and 30 min (max 80°C)
+
+6. ACCEPTANCE CRITERIA
+- Zero visible seal leakage
+- Flush flow ≥ 3.0 L/min (FI-1006)
+- Bearing temperature < 80°C (continuous)
+- Vibration < 4.5 mm/s RMS (ISO 10816 Zone B)
+
+7. REGULATORY REFERENCE
+- OISD-STD-116 Section 5.2 (Rotating Equipment Maintenance)
+- API 610 (Centrifugal Pumps for Petroleum Service)
+- API 682 (Pumps — Shaft Sealing Systems)
+
+8. DOCUMENT HISTORY
+Rev 3 — 2023-11-15 — Updated flush plan requirements per API 682 4th Ed
+Rev 2 — 2021-06-01 — Added H2S monitoring requirement
+Rev 1 — 2018-03-20 — Initial issue

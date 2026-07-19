@@ -1,0 +1,65 @@
+INSPECTION REPORT
+Report No: IR-2024-0341
+Plant: Crude Distillation Unit — Unit 1
+Inspector: J. Patel (Senior Inspector, API 510 Certified)
+Date: 2024-06-12
+Equipment: Heat Exchanger HX-E201 (Feed Pre-Heater)
+Tag: HX-E201
+Service: Crude Oil / Steam
+Design Pressure: 25 barg (shell), 12 barg (tube)
+Design Temperature: 280°C (shell), 200°C (tube)
+MOC: Carbon Steel (SA-516 Gr70)
+Last Inspection: 2022-05-18
+
+INSPECTION SCOPE
+- Visual inspection (external)
+- Thickness measurement (UT scanning)
+- Nozzle weld inspection (VT)
+- Pressure test review
+
+FINDINGS
+
+Finding 1 — MINOR
+Location: North head (shell side), nozzle N2 (crude inlet)
+Description: Surface corrosion observed on nozzle neck, approximately 150 mm from weld. Rust deposits covering 30% of external surface.
+Measured thickness: 8.2 mm (nominal 10 mm, minimum required 7.5 mm per API 579)
+Corrosion rate: 0.4 mm/year (based on last inspection data)
+Next inspection trigger: 24 months (calculated RBMI = 2026-06-12)
+Recommendation: Apply protective coating after surface preparation. Monitor at next turnaround.
+
+Finding 2 — MINOR
+Location: Tube bundle — tubes T-12, T-14, T-17 (Row 3, South side)
+Description: Partial blockage observed on tube entry face. Heavy fouling deposit (crude oil/asphaltenes). Estimated 15% tube area blocked.
+Pressure drop across exchanger: Current 0.8 barg vs design 0.4 barg (100% above design dP)
+Heat duty: Currently achieving 85% of design duty (preheat temperature 190°C vs design 220°C)
+Recommendation: Chemical cleaning or mechanical tube cleaning required. Schedule during next planned maintenance window. Restoration of 6-month cleaning cycle recommended (see Lessons Learned LL-003).
+
+Finding 3 — OBSERVATION
+Location: Expansion joint (shell side), south end
+Description: Minor surface cracks in expansion joint lagging. No structural concern. Lagging replacement recommended at next opportunity.
+Action required: Monitor. Schedule lagging replacement at next available window.
+
+PRESSURE TEST REVIEW
+Last hydraulic test: 2019-05-22 (Test pressure: 37.5 barg)
+Next scheduled test: 2024-05-22 (OVERDUE — 51 days)
+Note: Hydraulic test now overdue per OISD-STD-116 requirements. Issue work order for test scheduling.
+
+THICKNESS DATA SUMMARY
+Point   Nominal(mm)   Measured(mm)   Min Required   Status
+TM-01   10.0          9.8            7.5            OK
+TM-02   10.0          9.6            7.5            OK
+TM-03   10.0          8.2            7.5            MONITOR
+TM-04   10.0          9.9            7.5            OK
+TM-05   8.0           7.9            6.0            OK
+
+REGULATORY COMPLIANCE
+- OISD-STD-116 Section 8: Pressure Vessel Inspection — PARTIALLY COMPLIANT (hydraulic test overdue)
+- PESO Static Vessels Rules: In compliance (wall thickness within limits)
+- IBR (Indian Boiler Regulations): N/A (non-IBR vessel)
+
+OVERALL ASSESSMENT: SERVICEABLE with conditions
+Next inspection due: June 2026 (24-month interval)
+IMMEDIATE ACTION REQUIRED: Schedule hydraulic test (overdue per OISD-116)
+
+Signed: J. Patel, Senior Inspector
+Date: 2024-06-12

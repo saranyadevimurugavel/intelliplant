@@ -1,0 +1,70 @@
+INCIDENT INVESTIGATION REPORT
+Incident Number: INC-2023-0087
+Classification: Process Safety Incident — Major (Tier 2)
+Date of Incident: 2023-03-15 14:35 hrs
+Location: CDU Unit 1, Pump Bay P-101
+Equipment Involved: Crude Feed Pump P-101
+Reported By: Shift Supervisor A. Mehta
+Investigated By: S. Kumar (Process Safety Manager), R. Sharma (Maintenance), V. Singh (Operations)
+
+INCIDENT DESCRIPTION
+At 14:35 on 15-March-2023, a process leak was detected at the mechanical seal housing of pump P-101. The operator on rounds noted a sheen of crude oil on the pump base plate and activated the manual alarm. The pump was immediately stopped under emergency procedures. Approximately 15 litres of crude oil was released before isolation was achieved. No ignition occurred. One operator received minor hand contamination (first aid treated, no medical treatment required).
+
+SEQUENCE OF EVENTS
+13:15 — CDU feed rate reduced from 650 m3/hr to 280 m3/hr due to downstream column level control issue
+13:20 — P-101 continued operating at reduced flow; flush flow indicator FI-1006 showed 1.8 L/min (below minimum 3.0 L/min)
+13:45 — Operator performed routine round but did not check FI-1006 reading
+14:10 — Flush flow further reduced to 0.8 L/min (orifice partially blocked)
+14:35 — Mechanical seal failure detected. Process leak initiated. Emergency shutdown activated.
+14:42 — Pump isolated, fire hose deployed as precaution
+15:10 — Area declared safe. Investigation team assembled.
+
+IMMEDIATE CAUSE
+Mechanical seal failure (seal face fracture) due to dry running. Loss of flush fluid resulted in seal face overheating and fracture.
+
+ROOT CAUSE ANALYSIS (5-Why)
+Why 1: Mechanical seal failed?
+  → Seal dry-ran (no flush fluid at seal faces)
+Why 2: No flush fluid at seal faces?
+  → Flush orifice blocked (crude wax deposit, 3mm orifice)
+Why 3: Why did the blocked orifice not get detected?
+  → FI-1006 (flush flow indicator) not included in operator round checklist
+Why 4: Why not included in operator rounds?
+  → Rounds checklist not reviewed since API 682 Plan 11 flush was installed in 2017
+Why 5: Why was checklist not reviewed?
+  → No formal Management of Change (MOC) process followed when flush plan was modified
+
+ROOT CAUSE: Inadequate MOC process — flush plan modification in 2017 not properly incorporated into operator monitoring rounds.
+
+CONTRIBUTING FACTORS
+1. Reduced flow operation increased wax deposition risk (crude wax deposits at temperatures below 65°C; P-101 running at reduced load = lower seal chamber temperature)
+2. Flush orifice undersized (3 mm) for this crude blend's wax content
+3. No low-flow alarm on FI-1006
+4. Operator rounds frequency (2-hourly) insufficient for critical equipment during abnormal operations
+
+IMMEDIATE CORRECTIVE ACTIONS
+1. Seal replaced with upgraded API 682 Plan 23 cartridge seal (completed 2023-03-20)
+2. Orifice enlarged from 3 mm to 5 mm (completed 2023-03-20)
+3. Low-flow alarm set at FI-1006: 2.0 L/min (completed 2023-03-22)
+
+LONG-TERM PREVENTIVE ACTIONS
+1. Review and update all operator round checklists to include seal flush instruments — Due: 2023-06-30
+2. MOC procedure MOC-PROC-001 to be revised to mandate round checklist review — Due: 2023-05-31
+3. API 682 compliance audit for all critical pump seals — Due: 2023-09-30
+4. During low-flow operations, increase operator round frequency to 30-minute intervals for critical pumps — Standing instruction issued
+
+LESSONS LEARNED
+- Flush plan changes are safety-critical modifications and must go through full MOC process
+- Operator round checklists must be reviewed whenever equipment modifications are made
+- Reduced-flow operations increase wax deposition risk in crude service pumps — this must be included in risk assessment for low-load operation
+
+REGULATORY COMPLIANCE IMPACT
+- OISD-STD-116 Section 7.1 (Management of Change): GAP IDENTIFIED — MOC not followed for 2017 flush plan modification
+- OISD-STD-116 Section 5.2 (Rotating Equipment): Corrective actions address compliance
+
+ASSET DAMAGE: Mechanical seal — replacement cost ₹1,85,000
+PRODUCTION IMPACT: 7-hour unplanned outage, approximately 4,500 m3 crude processing delayed
+ENVIRONMENTAL IMPACT: 15-litre crude oil spill, contained on pump base plate, no soil or drain contamination
+
+Report Status: FINAL
+Approved: V.P. Operations, 2023-04-05
