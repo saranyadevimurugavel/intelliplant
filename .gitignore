@@ -22,9 +22,9 @@ backend/intelliplant.db
 backend/knowledge_graph.json
 backend/*.db
 
-# Node
-frontend/node_modules/
+# Frontend build (committed to repo for Render deployment)
 frontend/dist/
+
 
 # OS
 .DS_Store

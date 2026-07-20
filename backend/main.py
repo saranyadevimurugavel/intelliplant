@@ -58,8 +58,17 @@ app.include_router(compliance.router, prefix="/api/compliance", tags=["Complianc
 app.include_router(lessons.router, prefix="/api/lessons", tags=["Lessons Learned"])
 
 # Serve built React frontend — single URL for everything
-FRONTEND_DIST = os.path.join(os.path.dirname(__file__), "..", "frontend", "dist")
-if os.path.exists(FRONTEND_DIST):
+# Check both local dev path and Render build path
+FRONTEND_DIST = None
+for candidate in [
+    os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"),
+    os.path.join(os.path.dirname(__file__), "frontend_dist"),
+]:
+    if os.path.exists(candidate) and os.path.exists(os.path.join(candidate, "index.html")):
+        FRONTEND_DIST = candidate
+        break
+
+if FRONTEND_DIST:
     app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIST, "assets")), name="assets")
 
     @app.get("/{full_path:path}", include_in_schema=False)
