@@ -23,6 +23,7 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://localhost:8000",
         "https://intelliplant.vercel.app",
+        "https://intelliplant-o53n.onrender.com",
     ]
 
     class Config:
