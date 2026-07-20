@@ -1,40 +1,57 @@
 """
-ChromaDB vector store wrapper for RAG retrieval.
+Lightweight in-memory vector store using numpy.
+No ChromaDB dependency — works on Render free tier instantly.
+Persists to a JSON file for durability across restarts.
 """
+import json
+import os
 import logging
+import numpy as np
 from typing import List, Optional
-import chromadb
-from chromadb.config import Settings as ChromaSettings
-
 from core.config import settings
 
 logger = logging.getLogger(__name__)
 
-# Singleton chroma client
-_client: Optional[chromadb.PersistentClient] = None
-_collection = None
+STORE_PATH = None  # set on first use
+_store: dict = {"chunks": [], "embeddings": [], "metadatas": []}
 COLLECTION_NAME = "intelliplant_docs"
 
 
-def get_chroma_client() -> chromadb.PersistentClient:
-    global _client
-    if _client is None:
-        _client = chromadb.PersistentClient(
-            path=settings.chroma_dir,
-            settings=ChromaSettings(anonymized_telemetry=False),
-        )
-    return _client
+def _get_store_path() -> str:
+    global STORE_PATH
+    if STORE_PATH is None:
+        STORE_PATH = os.path.join(settings.chroma_dir, "vector_store.json")
+    return STORE_PATH
 
 
-def get_collection():
-    global _collection
-    if _collection is None:
-        client = get_chroma_client()
-        _collection = client.get_or_create_collection(
-            name=COLLECTION_NAME,
-            metadata={"hnsw:space": "cosine"},
-        )
-    return _collection
+def _load_store():
+    global _store
+    path = _get_store_path()
+    if os.path.exists(path):
+        try:
+            with open(path, "r") as f:
+                _store = json.load(f)
+            logger.info(f"Vector store loaded: {len(_store['chunks'])} chunks")
+        except Exception as e:
+            logger.warning(f"Could not load vector store: {e}")
+            _store = {"chunks": [], "embeddings": [], "metadatas": []}
+    else:
+        _store = {"chunks": [], "embeddings": [], "metadatas": []}
+
+
+def _save_store():
+    os.makedirs(settings.chroma_dir, exist_ok=True)
+    path = _get_store_path()
+    with open(path, "w") as f:
+        json.dump(_store, f)
+
+
+def _cosine_similarity(a: List[float], b: List[float]) -> float:
+    va = np.array(a, dtype=np.float32)
+    vb = np.array(b, dtype=np.float32)
+    dot = np.dot(va, vb)
+    norm = np.linalg.norm(va) * np.linalg.norm(vb)
+    return float(dot / norm) if norm > 0 else 0.0
 
 
 def add_chunks(
@@ -43,15 +60,15 @@ def add_chunks(
     ids: List[str],
     embeddings: List[List[float]],
 ):
-    """Add text chunks with their embeddings to the vector store."""
-    collection = get_collection()
-    collection.add(
-        documents=chunks,
-        metadatas=metadatas,
-        ids=ids,
-        embeddings=embeddings,
-    )
-    logger.info(f"Added {len(chunks)} chunks to vector store.")
+    """Add text chunks to the in-memory store."""
+    if not _store["chunks"]:
+        _load_store()
+    for chunk, meta, emb in zip(chunks, metadatas, embeddings):
+        _store["chunks"].append(chunk)
+        _store["metadatas"].append(meta)
+        _store["embeddings"].append(emb)
+    _save_store()
+    logger.info(f"Added {len(chunks)} chunks. Total: {len(_store['chunks'])}")
 
 
 def query_similar(
@@ -59,24 +76,60 @@ def query_similar(
     n_results: int = 5,
     where: Optional[dict] = None,
 ) -> dict:
-    """Retrieve most similar chunks to a query embedding."""
-    collection = get_collection()
-    kwargs = {
-        "query_embeddings": [query_embedding],
-        "n_results": min(n_results, collection.count() or 1),
-        "include": ["documents", "metadatas", "distances"],
+    """Find most similar chunks using cosine similarity."""
+    if not _store["chunks"]:
+        _load_store()
+
+    if not _store["chunks"]:
+        return {"documents": [[]], "metadatas": [[]], "distances": [[]]}
+
+    # Filter by metadata if where clause provided
+    indices = []
+    for i, meta in enumerate(_store["metadatas"]):
+        if where:
+            match = all(meta.get(k) == v for k, v in where.items())
+            if not match:
+                continue
+        indices.append(i)
+
+    if not indices:
+        return {"documents": [[]], "metadatas": [[]], "distances": [[]]}
+
+    # Compute similarities
+    scored = []
+    for i in indices:
+        sim = _cosine_similarity(query_embedding, _store["embeddings"][i])
+        scored.append((sim, i))
+
+    # Sort by similarity descending
+    scored.sort(key=lambda x: -x[0])
+    top = scored[:n_results]
+
+    docs, metas, dists = [], [], []
+    for sim, i in top:
+        docs.append(_store["chunks"][i])
+        metas.append(_store["metadatas"][i])
+        dists.append(1.0 - sim)  # convert similarity to distance
+
+    return {
+        "documents": [docs],
+        "metadatas": [metas],
+        "distances": [dists],
     }
-    if where:
-        kwargs["where"] = where
-    return collection.query(**kwargs)
 
 
 def delete_document_chunks(document_id: str):
-    """Remove all chunks for a document (e.g., on re-ingestion)."""
-    collection = get_collection()
-    collection.delete(where={"document_id": document_id})
+    """Remove all chunks for a document."""
+    if not _store["chunks"]:
+        _load_store()
+    keep = [i for i, m in enumerate(_store["metadatas"]) if m.get("document_id") != document_id]
+    _store["chunks"] = [_store["chunks"][i] for i in keep]
+    _store["metadatas"] = [_store["metadatas"][i] for i in keep]
+    _store["embeddings"] = [_store["embeddings"][i] for i in keep]
+    _save_store()
 
 
 def get_collection_stats() -> dict:
-    collection = get_collection()
-    return {"total_chunks": collection.count(), "collection_name": COLLECTION_NAME}
+    if not _store["chunks"]:
+        _load_store()
+    return {"total_chunks": len(_store["chunks"]), "collection_name": COLLECTION_NAME}
