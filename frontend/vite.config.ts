@@ -7,6 +7,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // GitHub Pages serves from /intelliplant/ subdirectory
+  base: process.env.GITHUB_ACTIONS ? '/intelliplant/' : '/',
   server: {
     port: 5173,
     proxy: {

@@ -11,10 +11,13 @@ const queryClient = new QueryClient({
   },
 })
 
+// GitHub Pages serves from /intelliplant/ — use that as basename
+const basename = import.meta.env.BASE_URL !== '/' ? import.meta.env.BASE_URL : '/'
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <App />
       </BrowserRouter>
     </QueryClientProvider>
