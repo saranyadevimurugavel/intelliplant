@@ -22,9 +22,10 @@ backend/intelliplant.db
 backend/knowledge_graph.json
 backend/*.db
 
-# Frontend build (committed to repo for Render deployment)
+# Node
+frontend/node_modules/
 frontend/dist/
-
+# backend/frontend_dist is intentionally committed for deployment
 
 # OS
 .DS_Store

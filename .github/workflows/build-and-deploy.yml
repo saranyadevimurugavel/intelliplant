@@ -1,0 +1,39 @@
+name: Build Frontend & Deploy to Render
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Build frontend
+        working-directory: frontend
+        env:
+          VITE_API_URL: https://intelliplant-o53n.onrender.com
+        run: npm run build
+
+      - name: Copy dist to backend
+        run: |
+          cp -r frontend/dist backend/frontend_dist
+
+      - name: Commit built frontend dist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f backend/frontend_dist/
+          git diff --staged --quiet || git commit -m "ci: auto-build frontend dist [skip ci]"
+          git push

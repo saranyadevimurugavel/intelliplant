@@ -58,23 +58,25 @@ app.include_router(compliance.router, prefix="/api/compliance", tags=["Complianc
 app.include_router(lessons.router, prefix="/api/lessons", tags=["Lessons Learned"])
 
 # Serve built React frontend — single URL for everything
-# Check both local dev path and Render build path
+# Checks: local dev, GitHub Actions build path, Render build path
 FRONTEND_DIST = None
 for candidate in [
-    os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"),
-    os.path.join(os.path.dirname(__file__), "frontend_dist"),
+    os.path.join(os.path.dirname(__file__), "frontend_dist"),       # Render/GitHub Actions
+    os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"),  # Local dev
 ]:
     if os.path.exists(candidate) and os.path.exists(os.path.join(candidate, "index.html")):
-        FRONTEND_DIST = candidate
+        FRONTEND_DIST = os.path.abspath(candidate)
+        logger.info(f"Serving frontend from: {FRONTEND_DIST}")
         break
 
 if FRONTEND_DIST:
-    app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIST, "assets")), name="assets")
+    assets_dir = os.path.join(FRONTEND_DIST, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
 
     @app.get("/{full_path:path}", include_in_schema=False)
     async def serve_frontend(full_path: str):
-        index = os.path.join(FRONTEND_DIST, "index.html")
-        return FileResponse(index)
+        return FileResponse(os.path.join(FRONTEND_DIST, "index.html"))
 
 
 @app.get("/")
