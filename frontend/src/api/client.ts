@@ -1,9 +1,13 @@
 import axios from 'axios'
 
-// When served from FastAPI (port 8000), use relative /api
-// When running dev server (port 5173), proxy handles it
+// In production (Vercel), use the Render backend URL
+// In development, use relative /api (proxied by Vite)
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : '/api'
+
 export const api = axios.create({
-  baseURL: '/api',
+  baseURL: BASE_URL,
   timeout: 60_000,
   headers: { 'Content-Type': 'application/json' },
 })
