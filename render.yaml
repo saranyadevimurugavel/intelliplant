@@ -8,16 +8,12 @@ services:
     envVars:
       - key: GROQ_API_KEY
         sync: false
-      - key: GEMINI_API_KEY
-        sync: false
       - key: GROQ_MODEL
         value: llama-3.3-70b-versatile
-      - key: EMBEDDING_MODEL
-        value: models/gemini-embedding-001
       - key: SECRET_KEY
         generateValue: true
       - key: CORS_ORIGINS
-        value: '["https://intelliplant.vercel.app","https://*.vercel.app","http://localhost:5173"]'
+        value: '["https://intelliplant.vercel.app","https://*.vercel.app","http://localhost:5173","http://localhost:8000"]'
       - key: UPLOAD_DIR
         value: /tmp/uploads
       - key: CHROMA_DIR

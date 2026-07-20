@@ -5,13 +5,9 @@ import os
 
 
 class Settings(BaseSettings):
-    # Groq (LLM)
+    # Groq (LLM — free tier)
     groq_api_key: str = "your-groq-key-here"
     groq_model: str = "llama-3.3-70b-versatile"
-
-    # Gemini (embeddings only)
-    gemini_api_key: str = "your-gemini-key-here"
-    embedding_model: str = "models/gemini-embedding-001"
 
     # Storage
     upload_dir: str = "./uploads"
@@ -22,7 +18,12 @@ class Settings(BaseSettings):
     # App
     app_env: str = "development"
     secret_key: str = "change-me-in-production"
-    cors_origins: List[str] = ["http://localhost:5173", "http://localhost:3000"]
+    cors_origins: List[str] = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost:8000",
+        "https://intelliplant.vercel.app",
+    ]
 
     class Config:
         env_file = ".env"
